@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const RenderTasks = ({ item }) => {
+const RenderTasks = ({ item, deleteTask }) => {
   return (
-    <View style={styles.taskTextContainer}>
-      <Text style={styles.taskText}>{item.text}</Text>
-    </View>
+    <TouchableOpacity onPress={() => deleteTask(item)}>
+      <View style={styles.taskTextContainer}>
+        <Text style={styles.taskText}>{item.text}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import RenderTasks from "./src/components/RenderTasks";
 import AddTask from "./src/components/AddTask";
 export default function App() {
@@ -19,6 +12,13 @@ export default function App() {
     ]);
   };
 
+  const deleteHandler = (item) => {
+    // console.log("jjj", item.key);
+    setTasks((currentTasks) => {
+      return currentTasks.filter((tasks) => tasks.key !== item.key);
+    });
+  };
+
   return (
     <View style={styles.main}>
       <AddTask addButton={addTasks} />
@@ -26,7 +26,9 @@ export default function App() {
         <FlatList
           data={tasks}
           keyExtractor={(item) => item.key}
-          renderItem={({ item }) => <RenderTasks item={item} />}
+          renderItem={({ item }) => (
+            <RenderTasks deleteTask={deleteHandler} item={item} />
+          )}
         />
       </View>
     </View>
