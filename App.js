@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Text, Button } from "react-native";
 import RenderTasks from "./src/components/RenderTasks";
 import AddTask from "./src/components/AddTask";
 export default function App() {
   const [tasks, setTasks] = useState([]);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   const addTasks = (taskInput) => {
     setTasks((currentTasks) => [
@@ -13,23 +14,38 @@ export default function App() {
   };
 
   const deleteHandler = (item) => {
-    // console.log("jjj", item.key);
     setTasks((currentTasks) => {
       return currentTasks.filter((tasks) => tasks.key !== item.key);
     });
   };
 
+  const startAddTaskHandler = () => {
+    setModalIsVisible(true);
+  };
+
   return (
     <View style={styles.main}>
-      <AddTask addButton={addTasks} />
+      <Button
+        title="Task əlavə et"
+        color="#5e0acc"
+        onPress={startAddTaskHandler}
+      />
+      <AddTask visible={modalIsVisible} addButton={addTasks} />
+
       <View style={styles.taskContainer}>
-        <FlatList
-          data={tasks}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => (
-            <RenderTasks deleteTask={deleteHandler} item={item} />
-          )}
-        />
+        {tasks.length > 0 ? (
+          <FlatList
+            data={tasks}
+            keyExtractor={(item) => item.key}
+            renderItem={({ item }) => (
+              <RenderTasks deleteTask={deleteHandler} item={item} />
+            )}
+          />
+        ) : (
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Text>Task əlavə edilməyib</Text>
+          </View>
+        )}
       </View>
     </View>
   );
