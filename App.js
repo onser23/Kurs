@@ -11,6 +11,7 @@ export default function App() {
       ...currentTasks,
       { text: taskInput, key: Math.random().toString() },
     ]);
+    setModalIsVisible(false);
   };
 
   const deleteHandler = (item) => {

@@ -36,7 +36,7 @@ export default AddTask;
 const styles = StyleSheet.create({
   header: {
     flex: 1,
-
+    padding: 16,
     justifyContent: "center",
     alignItems: "center",
     borderBottomWidth: 1,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   inpitStyle: {
     borderWidth: 1,
     borderColor: "#cccccc",
-    width: "70%",
+    width: "100%",
     padding: 8,
   },
   buttonsContainer: {
