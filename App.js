@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, FlatList, Text, Button } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
 import RenderTasks from "./src/components/RenderTasks";
 import AddTask from "./src/components/AddTask";
 export default function App() {
@@ -29,34 +31,37 @@ export default function App() {
   };
 
   return (
-    <View style={styles.main}>
-      <Button
-        title="Task əlavə et"
-        color="#5e0acc"
-        onPress={startAddTaskHandler}
-      />
-      <AddTask
-        modalIsVisibleHandlerProp={modalIsVisibleHandler}
-        visible={modalIsVisible}
-        addButton={addTasks}
-      />
+    <>
+      <StatusBar style="light" />
+      <View style={styles.main}>
+        <Button
+          title="Task əlavə et"
+          color="#5e0acc"
+          onPress={startAddTaskHandler}
+        />
+        <AddTask
+          modalIsVisibleHandlerProp={modalIsVisibleHandler}
+          visible={modalIsVisible}
+          addButton={addTasks}
+        />
 
-      <View style={styles.taskContainer}>
-        {tasks.length > 0 ? (
-          <FlatList
-            data={tasks}
-            keyExtractor={(item) => item.key}
-            renderItem={({ item }) => (
-              <RenderTasks deleteTask={deleteHandler} item={item} />
-            )}
-          />
-        ) : (
-          <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Text>Task əlavə edilməyib</Text>
-          </View>
-        )}
+        <View style={styles.taskContainer}>
+          {tasks.length > 0 ? (
+            <FlatList
+              data={tasks}
+              keyExtractor={(item) => item.key}
+              renderItem={({ item }) => (
+                <RenderTasks deleteTask={deleteHandler} item={item} />
+              )}
+            />
+          ) : (
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={{ color: "#fff" }}>Task əlavə edilməyib</Text>
+            </View>
+          )}
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
