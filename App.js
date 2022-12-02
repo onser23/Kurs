@@ -11,7 +11,7 @@ export default function App() {
       ...currentTasks,
       { text: taskInput, key: Math.random().toString() },
     ]);
-    setModalIsVisible(false);
+    modalIsVisibleHandler();
   };
 
   const deleteHandler = (item) => {
@@ -24,6 +24,10 @@ export default function App() {
     setModalIsVisible(true);
   };
 
+  const modalIsVisibleHandler = () => {
+    setModalIsVisible(false);
+  };
+
   return (
     <View style={styles.main}>
       <Button
@@ -31,7 +35,11 @@ export default function App() {
         color="#5e0acc"
         onPress={startAddTaskHandler}
       />
-      <AddTask visible={modalIsVisible} addButton={addTasks} />
+      <AddTask
+        modalIsVisibleHandlerProp={modalIsVisibleHandler}
+        visible={modalIsVisible}
+        addButton={addTasks}
+      />
 
       <View style={styles.taskContainer}>
         {tasks.length > 0 ? (

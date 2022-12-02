@@ -1,7 +1,15 @@
-import { StyleSheet, Text, View, TextInput, Button, Modal } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Modal,
+  Image,
+} from "react-native";
 import { useState } from "react";
 
-const AddTask = ({ addButton, visible }) => {
+const AddTask = ({ addButton, visible, modalIsVisibleHandlerProp }) => {
   const [taskInput, setTaskInput] = useState("");
 
   const addTaskHandler = () => {
@@ -9,21 +17,34 @@ const AddTask = ({ addButton, visible }) => {
     setTaskInput("");
   };
 
+  const cancelTaskButton = () => {
+    modalIsVisibleHandlerProp(false);
+  };
+
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.header}>
+        <Image
+          source={require("../assets/images/goal.png")}
+          style={styles.goalImage}
+        />
         <TextInput
           onChangeText={(text) => setTaskInput(text)}
           style={styles.inpitStyle}
           placeholder="Task əlavə et"
           value={taskInput}
+          // placeholderTextColor="#fff"
         />
         <View style={styles.buttonsContainer}>
           <View style={styles.button}>
-            <Button onPress={addTaskHandler} title="Əlavə et" />
+            <Button color="#b180f0" onPress={addTaskHandler} title="Əlavə et" />
           </View>
           <View style={styles.button}>
-            <Button onPress={addTaskHandler} title="Ləğv et" />
+            <Button
+              color="#f31282"
+              onPress={cancelTaskButton}
+              title="Ləğv et"
+            />
           </View>
         </View>
       </View>
@@ -40,17 +61,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderColor: "#cccccc",
-    paddingBottom: 24,
+    backgroundColor: "#311b6b",
+  },
+  goalImage: {
+    width: 120,
+    height: 120,
+    margin: 17,
   },
   inpitStyle: {
     borderWidth: 1,
-    borderColor: "#cccccc",
+    borderColor: "#e4d0ff",
+    backgroundColor: "#e4d0ff",
     width: "100%",
-    padding: 8,
+    padding: 16,
+    color: "#120438",
+    borderRadius: 6,
   },
   buttonsContainer: {
-    // flex: 1,
     flexDirection: "row",
     marginTop: 10,
   },
